@@ -5,6 +5,7 @@ KAIVM is a multiplatform Command Line Interface (CLI) designed to simplify the p
 Getting started with KAIVM is straightforward. Follow these steps to install, run, and customize a specific version of Shinkai Node:
 
 ## Getting Started
+
 ### 1. Install KAIVM
 
 For macOS Apple Silicon users, the installation process involves a few simple steps. Please follow the instructions below:
@@ -17,7 +18,8 @@ For macOS Apple Silicon users, the installation process involves a few simple st
 
 For users on other platforms, installation instructions are coming soon.
 
-### Install and run Shinkai Node
+### 2. Install and run Shinkai Node
+
 1. **Install a Shinkai Node Version**
 
    To install a specific version of Shinkai Node, use the `install` command followed by the version number. For example, to install version 0.5.3, you would run:
