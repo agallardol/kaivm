@@ -49,9 +49,10 @@ pub fn get_config_file_path() -> String {
 
 pub fn get_shinkai_node_binary_url(version: &String) -> String {
     let url = format!(
-        "https://download.shinkai.com/shinkai-node/binaries/{}/shinkai-node-{}",
+        "https://download.shinkai.com/shinkai-node/binaries/{}/shinkai-node-{}{}",
         get_arch(),
-        version
+        version,
+        if cfg!(target_os = "windows") { ".exe" } else { "" },
     );
     url
 }
