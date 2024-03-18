@@ -1,9 +1,14 @@
 [package]
 name = "kaivm"
 version = "0.1.0"
+description = "KAIVM is a multiplatform Command Line Interface (CLI) designed to simplify the process of downloading, managing, configuring, and running different versions of Shinkai Node"
+authors = ["Alfredo Gallardo <agallardol@outlook.com>"]
+homepage = "https://github.com/agallardol/kaivm"
+repository = "https://github.com/agallardol/kaivm"
+readme = "README.md"
+categories = ["command-line-utilities"]
+keywords = ["cli", "shinkai", "ai", "shinkai-node", "version-manager"]
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 clap = "4.5.3"
