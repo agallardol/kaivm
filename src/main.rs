@@ -1,0 +1,88 @@
+use clap::{arg, Arg, Command};
+use config::config_manager::ConfigManager;
+
+mod command_handlers;
+mod config;
+mod utils;
+
+fn cli() -> Command {
+    Command::new("svm")
+        .about("A Shinkai Node versioning CLI")
+        .subcommand_required(true)
+        .subcommand(Command::new("list").about("List all Shinkai Node installed versions"))
+        .subcommand(
+            Command::new("install")
+                .about("Install a specific version of Shinkai Node")
+                .arg(arg!(<VERSION> "The version to install"))
+                .arg_required_else_help(true),
+        )
+        .subcommand(
+            Command::new("use")
+                .about("Use a specific version of Shinkai Node")
+                .arg(arg!(<VERSION> "The version to use"))
+                .arg_required_else_help(true),
+        )
+        .subcommand(Command::new("version").about("Get current Shinkai Node version"))
+        .subcommand(
+            Command::new("shinkai-node")
+                .subcommand_required(true)
+                .about("Manage Shinkai Node")
+                .subcommand(Command::new("run").about("Run current Shinkai Node version"))
+                .subcommand(
+                    Command::new("env").about("Set variables for current Shinkai Node")
+                                .arg(Arg::new("node_api_port").long("node_api_port").required(false).help("Specifies the port on which the Shinkai Node API will run."))
+                                .arg(Arg::new("node_storage_path").long("node_storage_path").required(false).help("Defines the file system path where the Shinkai Node will store its data."))
+                                .arg(Arg::new("unstructured_server_url").long("unstructured_server_url").required(false).help("The URL of the unstructured server that the Shinkai Node will communicate with."))
+                                .arg(Arg::new("embeddings_server_url").long("embeddings_server_url").required(false).help("The URL of the embeddings server used by the Shinkai Node for processing data."))
+                                .arg(Arg::new("first_device_needs_registration_code").long("first_device_needs_registration_code").required(false).help("Determines whether the first device connecting to the Shinkai Node requires a registration code for authentication. Accepts 'true' or 'false'."))
+                                .arg(Arg::new("initial_agent_names").long("initial_agent_names").required(false).help("A comma-separated list of initial agent names to be registered with the Shinkai Node."))
+                                .arg(Arg::new("initial_agent_urls").long("initial_agent_urls").required(false).help("A comma-separated list of URLs for the initial agents, corresponding to the names provided."))
+                                .arg(Arg::new("initial_agent_models").long("initial_agent_models").required(false).help("A comma-separated list of models for the initial agents, corresponding to the names provided."))
+                                .arg(Arg::new("initial_agent_api_keys").long("initial_agent_api_keys").required(false).help("A comma-separated list of API keys for the initial agents, corresponding to the names provided."))
+                                .arg(Arg::new("starting_num_qr_devices").long("starting_num_qr_devices").required(false).help("The initial number of QR devices that should be supported by the Shinkai Node."))
+                )
+        )
+}
+
+#[tokio::main]
+async fn main() {
+    let config_manager = ConfigManager::new();
+    let command = cli();
+    let matches = command.get_matches();
+    match matches.subcommand() {
+        Some(("list", sub_matches)) => {
+            command_handlers::list::list(&cli(), sub_matches, config_manager)
+        }
+        Some(("install", sub_matches)) => {
+            command_handlers::install::install(&cli(), sub_matches, config_manager).await
+        }
+        Some(("use", sub_matches)) => {
+            command_handlers::r#use::r#use(&cli(), sub_matches, config_manager)
+        }
+        Some(("version", sub_matches)) => {
+            command_handlers::version::version(&cli(), sub_matches, config_manager)
+        }
+        Some(("shinkai-node", sub_matches)) => match sub_matches.subcommand() {
+            Some(("run", sub_matches)) => {
+                command_handlers::run::run(&cli(), sub_matches, config_manager)
+            }
+            Some(("env", sub_matches)) => {
+                command_handlers::env::env(&cli(), sub_matches, config_manager)
+            }
+            _ => {
+                let error = clap::Error::raw(
+                    clap::error::ErrorKind::UnknownArgument,
+                    "Command not found.",
+                );
+                error.exit();
+            }
+        },
+        _ => {
+            let error = clap::Error::raw(
+                clap::error::ErrorKind::UnknownArgument,
+                "Command not found.",
+            );
+            error.exit();
+        }
+    }
+}
