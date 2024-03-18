@@ -9,11 +9,11 @@ Getting started with SVM is straightforward. Follow these steps to install, run,
 
 For macOS Apple Silicon users, the installation process involves a few simple steps. Please follow the instructions below:
 
-    ```sh
-        curl -L https://raw.githubusercontent.com/agallardol/svm/main/temp-release/svm-aarch64-apple-darwin -o svm
-        chmod +x svm
-        mv svm /usr/local/bin/
-    ```
+  ```sh
+  curl -L https://raw.githubusercontent.com/agallardol/svm/main/temp-release/svm-aarch64-apple-darwin -o svm
+  chmod +x svm
+  mv svm /usr/local/bin/
+  ```
 
 For users on other platforms, installation instructions are coming soon.
 
