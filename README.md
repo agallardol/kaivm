@@ -42,10 +42,10 @@ For users on other platforms, installation instructions are coming soon.
 
 2. **Run Shinkai Node**
 
-   After installing the desired version, you can run it using the `shinkai-node run` command. This will start the Shinkai Node with the currently set version:
+   After installing the desired version, you can run it using the `kaivm node run` command. This will start the Shinkai Node with the currently set version:
 
    ```
-   kaivm shinkai-node run
+   kaivm node run
    ```
 
 3. **Customize Shinkai Node**
@@ -53,7 +53,7 @@ For users on other platforms, installation instructions are coming soon.
    You can customize your Shinkai Node instance by passing environment variables using the `--var=value` syntax. For example, to set the API port and the storage path, you can use:
 
    ```
-   kaivm shinkai-node env --node_api_port=9550 --node_storage_path=~/.kaivm/data
+   kaivm node env --node_api_port=9550 --node_storage_path=~/.kaivm/data
    ```
 
 By following these steps, you can easily manage, switch between different versions, and customize Shinkai Node for your development needs.
@@ -89,7 +89,7 @@ KAIVM offers a variety of commands to manage Shinkai Node versions:
 
 - **shinkai-node run**: Runs the currently set version of Shinkai Node.
   ```
-  kaivm shinkai-node run
+  kaivm node run
   ```
 
 - **shinkai-node env**: Sets environment variables for the current Shinkai Node session. Available options include:
@@ -104,7 +104,7 @@ KAIVM offers a variety of commands to manage Shinkai Node versions:
   - `--initial_agent_api_keys`: A comma-separated list of API keys for the initial agents, corresponding to the names provided.
   - `--starting_num_qr_devices`: The initial number of QR devices that should be supported by the Shinkai Node.
   ```
-  kaivm shinkai-node env --node_api_port 9550 --node_storage_path ~/.kaivm/data
+  kaivm node env --node_api_port 9550 --node_storage_path ~/.kaivm/data
   ```
 
 With KAIVM, managing Shinkai Node versions becomes a breeze, allowing developers to focus on building and testing their applications.
