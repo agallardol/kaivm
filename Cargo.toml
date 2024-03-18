@@ -9,6 +9,7 @@ readme = "README.md"
 categories = ["command-line-utilities"]
 keywords = ["cli", "shinkai", "ai", "shinkai-node", "version-manager"]
 edition = "2021"
+license-file = "LICENSE"
 
 [dependencies]
 clap = "4.5.3"
