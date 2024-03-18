@@ -3,10 +3,21 @@
 SVM is a multiplatform Command Line Interface (CLI) designed to simplify the process of downloading, managing, configuring, and running different versions of Shinkai Node. It provides a seamless way to switch between Shinkai Node versions, ensuring developers can test their applications against multiple versions with ease. For more information on getting started with Shinkai Node, visit [Shinkai Documentation](https://docs.shinkai.com/getting-started).
 
 Getting started with SVM is straightforward. Follow these steps to install, run, and customize a specific version of Shinkai Node:
-0. **Install SVM**
 
-   The SVM installation process will be simplified through a shell script. This feature is coming soon. Stay tuned for updates on how to easily install SVM on your system.
+## Getting Started
+### 1. Install SVM
 
+For macOS Apple Silicon users, the installation process involves a few simple steps. Please follow the instructions below:
+
+    ```sh
+        curl -L https://raw.githubusercontent.com/agallardol/svm/main/temp-release/svm-aarch64-apple-darwin -o svm
+        chmod +x svm
+        mv svm /usr/local/bin/
+    ```
+
+For users on other platforms, installation instructions are coming soon.
+
+### Install and run Shinkai Node
 1. **Install a Shinkai Node Version**
 
    To install a specific version of Shinkai Node, use the `install` command followed by the version number. For example, to install version 0.5.3, you would run:
