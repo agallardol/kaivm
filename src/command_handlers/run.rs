@@ -15,7 +15,7 @@ fn ensure_ollama_models(initial_agent_models: &Vec<String>) {
     let ollama_list_output_text = String::from_utf8(ollama_list.unwrap().stdout).unwrap();
     for agent_model in initial_agent_models {
         if let Some(model) = agent_model.strip_prefix("ollama:") {
-            if !ollama_list_output_text.contains(&format!("{}", model)) {
+            if !ollama_list_output_text.contains(&model.to_string()) {
                 println!("ollama model '{}' is not installed.", model);
                 println!("auto installing it using 'ollama pull {}'...", model);
                 let ollama_pull = Command::new("ollama").arg("pull").arg(model).output();
