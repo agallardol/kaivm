@@ -9,22 +9,26 @@ fn cli() -> Command {
     Command::new("kaivm")
         .about("A Shinkai Node versioning CLI")
         .subcommand_required(true)
-        .subcommand(Command::new("list").about("List all Shinkai Node installed versions"))
+        .subcommand(Command::new("list").short_flag('l').long_flag("list").long_flag_alias("ls").about("List all Shinkai Node installed versions"))
         .subcommand(
             Command::new("install")
+                .short_flag('i')
                 .about("Install a specific version of Shinkai Node")
                 .arg(arg!(<VERSION> "The version to install"))
                 .arg_required_else_help(true),
         )
         .subcommand(
             Command::new("use")
+                .short_flag('u')
                 .about("Use a specific version of Shinkai Node")
                 .arg(arg!(<VERSION> "The version to use"))
                 .arg_required_else_help(true),
         )
-        .subcommand(Command::new("version").about("Get current Shinkai Node version"))
+        .subcommand(Command::new("version").short_flag('v').about("Get current Shinkai Node version"))
         .subcommand(
-            Command::new("shinkai-node")
+            Command::new("node")
+                .short_flag('n')
+                .long_flag("shinkai-node")
                 .subcommand_required(true)
                 .about("Manage Shinkai Node")
                 .subcommand(Command::new("run").about("Run current Shinkai Node version"))
@@ -62,7 +66,7 @@ async fn main() {
         Some(("version", sub_matches)) => {
             command_handlers::version::version(&cli(), sub_matches, config_manager)
         }
-        Some(("shinkai-node", sub_matches)) => match sub_matches.subcommand() {
+        Some(("node", sub_matches)) => match sub_matches.subcommand() {
             Some(("run", sub_matches)) => {
                 command_handlers::run::run(&cli(), sub_matches, config_manager)
             }
