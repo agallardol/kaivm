@@ -1,7 +1,7 @@
 pub fn get_full_path(sub_path: &String) -> String {
     let base_path = dirs::home_dir().expect("Failed to get home directory");
     base_path
-        .join(format!(".svm/{}", sub_path))
+        .join(format!(".kaivm/{}", sub_path))
         .to_str()
         .unwrap()
         .to_string()

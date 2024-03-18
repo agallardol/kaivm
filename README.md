@@ -1,18 +1,18 @@
-# SVM - Shinkai Version Manager
+# KAIVM - Shinkai Version Manager
 
-SVM is a multiplatform Command Line Interface (CLI) designed to simplify the process of downloading, managing, configuring, and running different versions of Shinkai Node. It provides a seamless way to switch between Shinkai Node versions, ensuring developers can test their applications against multiple versions with ease. For more information on getting started with Shinkai Node, visit [Shinkai Documentation](https://docs.shinkai.com/getting-started).
+KAIVM is a multiplatform Command Line Interface (CLI) designed to simplify the process of downloading, managing, configuring, and running different versions of Shinkai Node. It provides a seamless way to switch between Shinkai Node versions, ensuring developers can test their applications against multiple versions with ease. For more information on getting started with Shinkai Node, visit [Shinkai Documentation](https://docs.shinkai.com/getting-started).
 
-Getting started with SVM is straightforward. Follow these steps to install, run, and customize a specific version of Shinkai Node:
+Getting started with KAIVM is straightforward. Follow these steps to install, run, and customize a specific version of Shinkai Node:
 
 ## Getting Started
-### 1. Install SVM
+### 1. Install KAIVM
 
 For macOS Apple Silicon users, the installation process involves a few simple steps. Please follow the instructions below:
 
   ```sh
-  curl -L https://raw.githubusercontent.com/agallardol/svm/main/temp-release/svm-aarch64-apple-darwin -o svm
-  chmod +x svm
-  mv svm /usr/local/bin/
+  curl -L https://raw.githubusercontent.com/agallardol/kaivm/main/temp-release/kaivm-aarch64-apple-darwin -o kaivm
+  chmod +x kaivm
+  mv kaivm /usr/local/bin/
   ```
 
 For users on other platforms, installation instructions are coming soon.
@@ -23,7 +23,7 @@ For users on other platforms, installation instructions are coming soon.
    To install a specific version of Shinkai Node, use the `install` command followed by the version number. For example, to install version 0.5.3, you would run:
 
    ```
-   svm install v0.5.3
+   kaivm install v0.5.3
    ```
 
 2. **Run Shinkai Node**
@@ -31,7 +31,7 @@ For users on other platforms, installation instructions are coming soon.
    After installing the desired version, you can run it using the `shinkai-node run` command. This will start the Shinkai Node with the currently set version:
 
    ```
-   svm shinkai-node run
+   kaivm shinkai-node run
    ```
 
 3. **Customize Shinkai Node**
@@ -39,7 +39,7 @@ For users on other platforms, installation instructions are coming soon.
    You can customize your Shinkai Node instance by passing environment variables using the `--var=value` syntax. For example, to set the API port and the storage path, you can use:
 
    ```
-   svm shinkai-node env --node_api_port=9550 --node_storage_path=~/.svm/data
+   kaivm shinkai-node env --node_api_port=9550 --node_storage_path=~/.kaivm/data
    ```
 
 By following these steps, you can easily manage, switch between different versions, and customize Shinkai Node for your development needs.
@@ -47,35 +47,35 @@ By following these steps, you can easily manage, switch between different versio
 
 ## Configuration and Assets
 
-SVM stores its configuration files and downloaded Shinkai Node versions in the `~/.svm` directory. This centralized storage makes it easy to manage and access all SVM-related assets.
+KAIVM stores its configuration files and downloaded Shinkai Node versions in the `~/.kaivm` directory. This centralized storage makes it easy to manage and access all KAIVM-related assets.
 
 ## Available Commands
 
-SVM offers a variety of commands to manage Shinkai Node versions:
+KAIVM offers a variety of commands to manage Shinkai Node versions:
 
 - **list**: Lists all installed Shinkai Node versions.
   ```
-  svm list
+  kaivm list
   ```
 
 - **install <VERSION>**: Downloads and installs a specific version of Shinkai Node.
   ```
-  svm install 1.2.3
+  kaivm install 1.2.3
   ```
 
 - **use <VERSION>**: Sets a specific version of Shinkai Node as the current version.
   ```
-  svm use 1.2.3
+  kaivm use 1.2.3
   ```
 
 - **version**: Displays the current Shinkai Node version.
   ```
-  svm version
+  kaivm version
   ```
 
 - **shinkai-node run**: Runs the currently set version of Shinkai Node.
   ```
-  svm shinkai-node run
+  kaivm shinkai-node run
   ```
 
 - **shinkai-node env**: Sets environment variables for the current Shinkai Node session. Available options include:
@@ -90,7 +90,7 @@ SVM offers a variety of commands to manage Shinkai Node versions:
   - `--initial_agent_api_keys`: A comma-separated list of API keys for the initial agents, corresponding to the names provided.
   - `--starting_num_qr_devices`: The initial number of QR devices that should be supported by the Shinkai Node.
   ```
-  svm shinkai-node env --node_api_port 9550 --node_storage_path ~/.svm/data
+  kaivm shinkai-node env --node_api_port 9550 --node_storage_path ~/.kaivm/data
   ```
 
-With SVM, managing Shinkai Node versions becomes a breeze, allowing developers to focus on building and testing their applications.
+With KAIVM, managing Shinkai Node versions becomes a breeze, allowing developers to focus on building and testing their applications.

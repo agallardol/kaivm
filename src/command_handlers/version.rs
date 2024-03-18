@@ -11,6 +11,6 @@ pub fn version(_command: &Command, _sub_matches: &ArgMatches, config_manager: Co
         "unset".to_string()
     };
 
-    println!("SVM: {}", VERSION);
+    println!("kaivm: {}", VERSION);
     println!("Shinkai Node: {}", current_shinkai_node_version);
 }

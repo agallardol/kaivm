@@ -8,7 +8,7 @@ pub fn run(_command: &clap::Command, _sub_matches: &ArgMatches, config_manager: 
     if config.current.is_none() {
         let error = clap::Error::raw(
             clap::error::ErrorKind::InvalidValue,
-            "No current Shinkai Node version is set. Please use 'svm use <VERSION>' to set a current version.",
+            "No current Shinkai Node version is set. Please use 'kaivm use <VERSION>' to set a current version.",
         );
         error.exit();
     }
@@ -17,7 +17,7 @@ pub fn run(_command: &clap::Command, _sub_matches: &ArgMatches, config_manager: 
         let error = clap::Error::raw(
             clap::error::ErrorKind::InvalidValue,
             format!(
-                "Shinkai Node '{}' is not installed. Please use 'svm install <VERSION>'",
+                "Shinkai Node '{}' is not installed. Please use 'kaivm install <VERSION>'",
                 shinkai_node_binary_file_path
             ),
         );

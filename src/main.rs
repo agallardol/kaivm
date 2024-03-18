@@ -6,7 +6,7 @@ mod config;
 mod utils;
 
 fn cli() -> Command {
-    Command::new("svm")
+    Command::new("kaivm")
         .about("A Shinkai Node versioning CLI")
         .subcommand_required(true)
         .subcommand(Command::new("list").about("List all Shinkai Node installed versions"))
