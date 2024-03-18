@@ -72,10 +72,11 @@ pub fn run(_command: &clap::Command, _sub_matches: &ArgMatches, config_manager: 
 
     let options_reflection =
         serde_json::to_value(config.shinkai_node_env.unwrap().clone()).unwrap();
+    println!("Running Shinkai Node with envs:");
     for (key, value) in options_reflection.as_object().unwrap() {
         let env_key = key.to_uppercase();
         let env_value = value.as_str().unwrap_or_default().to_string();
-        println!("starting with {}:{}", env_key.clone(), env_value.clone());
+        println!("\t{}:{}", env_key.clone(), env_value.clone());
         command.env(env_key, env_value);
     }
 
