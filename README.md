@@ -8,6 +8,18 @@ Getting started with KAIVM is straightforward. Follow these steps to install, ru
 
 ### 1. Install KAIVM
 
+There are two primary methods to install KAIVM:
+
+#### Option 1: Install using Cargo
+
+If you have Rust's package manager, Cargo, already installed, you can easily add KAIVM by running:
+
+  ```sh
+  cargo install kaivm
+  ```
+
+#### Option 2: Install using binary
+
 For macOS Apple Silicon users, the installation process involves a few simple steps. Please follow the instructions below:
 
   ```sh
