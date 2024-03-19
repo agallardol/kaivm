@@ -45,6 +45,11 @@ fn cli() -> Command {
                                 .arg(Arg::new("initial_agent_api_keys").long("initial_agent_api_keys").required(false).help("A comma-separated list of API keys for the initial agents, corresponding to the names provided."))
                                 .arg(Arg::new("starting_num_qr_devices").long("starting_num_qr_devices").required(false).help("The initial number of QR devices that should be supported by the Shinkai Node."))
                 )
+                .subcommand(
+                    Command::new("reset").about("Reset your Shinkai Node storage")
+                                .arg(Arg::new("confirm").long("confirm").short('c').help("Confirm you want to reset your Shinkai Node.")
+                            )
+                        )
         )
 }
 
@@ -72,6 +77,9 @@ async fn main() {
             }
             Some(("env", sub_matches)) => {
                 command_handlers::env::env(&cli(), sub_matches, config_manager)
+            }
+            Some(("reset", sub_matches)) => {
+                command_handlers::reset::reset(&cli(), sub_matches, config_manager)
             }
             _ => {
                 let error = clap::Error::raw(
