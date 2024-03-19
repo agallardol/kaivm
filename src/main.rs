@@ -44,6 +44,12 @@ fn cli() -> Command {
                                 .arg(Arg::new("initial_agent_models").long("initial_agent_models").required(false).help("A comma-separated list of models for the initial agents, corresponding to the names provided."))
                                 .arg(Arg::new("initial_agent_api_keys").long("initial_agent_api_keys").required(false).help("A comma-separated list of API keys for the initial agents, corresponding to the names provided."))
                                 .arg(Arg::new("starting_num_qr_devices").long("starting_num_qr_devices").required(false).help("The initial number of QR devices that should be supported by the Shinkai Node."))
+                                .arg(Arg::new("node_port").long("node_port").required(false).help("Specifies the port on which the Shinkai Node will run."))
+                                .arg(Arg::new("node_ws_port").long("node_ws_port").required(false).help("Specifies the WebSocket port for the Shinkai Node."))
+                                .arg(Arg::new("unstructured_server_api_key").long("unstructured_server_api_key").required(false).help("The API key for the unstructured server that the Shinkai Node will communicate with."))
+                                .arg(Arg::new("embeddings_server_api_key").long("embeddings_server_api_key").required(false).help("The API key for the embeddings server used by the Shinkai Node for processing data."))
+                                .arg(Arg::new("job_manager_threads").long("job_manager_threads").required(false).help("The number of threads to be used by the job manager within the Shinkai Node."))
+                                .arg(Arg::new("global_identity_name").long("global_identity_name").required(false).help("The global identity name for the Shinkai Node."))
                 )
                 .subcommand(
                     Command::new("reset").about("Reset your Shinkai Node storage")

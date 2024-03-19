@@ -76,8 +76,10 @@ pub fn run(_command: &clap::Command, _sub_matches: &ArgMatches, config_manager: 
     for (key, value) in options_reflection.as_object().unwrap() {
         let env_key = key.to_uppercase();
         let env_value = value.as_str().unwrap_or_default().to_string();
-        println!("\t{}:{}", env_key.clone(), env_value.clone());
-        command.env(env_key, env_value);
+        if !env_value.is_empty() {
+            println!("\t{}:{}", env_key.clone(), env_value.clone());
+            command.env(env_key, env_value);
+        }
     }
 
     let mut child = command.spawn().expect("Failed to execute Shinkai Node");
