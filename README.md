@@ -6,7 +6,11 @@ KAIVM is a multiplatform Command Line Interface (CLI) designed to simplify the p
 
 ## Getting Started
 
-Getting started with KAIVM is straightforward. Follow these steps to install, run, and customize a specific version of Shinkai Node:
+Getting started with KAIVM is very straightforward.
+
+![demo gif](https://raw.githubusercontent.com/agallardol/kaivm/main/readme-assets/demo.gif)
+
+Follow these steps to install, run, and customize a specific version of Shinkai Node:
 
 ### 1. Install KAIVM
 
