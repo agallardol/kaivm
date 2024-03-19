@@ -7,11 +7,7 @@ fn print_config(shinkai_node_env: &ShinkaiNodeEnv) {
     for (key, value) in options_reflection.as_object().unwrap() {
         let env_key = key.clone();
         let env_value = value.as_str().unwrap_or_default().to_string();
-        println!(
-            "\t{}: {}",
-            env_key,
-            env_value
-        );
+        println!("\t{}: {}", env_key, env_value);
     }
 }
 
@@ -104,6 +100,54 @@ pub fn env(_command: &Command, sub_matches: &ArgMatches, mut config_manager: Con
         .as_ref()
         .unwrap()
         .clone();
+    let existing_node_port = config
+        .shinkai_node_env
+        .as_ref()
+        .unwrap()
+        .node_port
+        .as_ref()
+        .unwrap()
+        .clone();
+    let existing_node_ws_port = config
+        .shinkai_node_env
+        .as_ref()
+        .unwrap()
+        .node_ws_port
+        .as_ref()
+        .unwrap()
+        .clone();
+    let existing_unstructured_server_api_key = config
+        .shinkai_node_env
+        .as_ref()
+        .unwrap()
+        .unstructured_server_api_key
+        .as_ref()
+        .unwrap()
+        .clone();
+    let existing_embeddings_server_api_key = config
+        .shinkai_node_env
+        .as_ref()
+        .unwrap()
+        .embeddings_server_api_key
+        .as_ref()
+        .unwrap()
+        .clone();
+    let existing_job_manager_threads = config
+        .shinkai_node_env
+        .as_ref()
+        .unwrap()
+        .job_manager_threads
+        .as_ref()
+        .unwrap()
+        .clone();
+    let existing_global_identity_name = config
+        .shinkai_node_env
+        .as_ref()
+        .unwrap()
+        .global_identity_name
+        .as_ref()
+        .unwrap()
+        .clone();
     config.shinkai_node_env = Some(ShinkaiNodeEnv {
         node_api_port: Some(
             sub_matches
@@ -164,6 +208,42 @@ pub fn env(_command: &Command, sub_matches: &ArgMatches, mut config_manager: Con
                 .get_one::<String>("starting_num_qr_devices")
                 .cloned()
                 .unwrap_or(existing_starting_num_qr_devices),
+        ),
+        node_port: Some(
+            sub_matches
+                .get_one::<String>("node_port")
+                .cloned()
+                .unwrap_or_else(|| existing_node_port),
+        ),
+        node_ws_port: Some(
+            sub_matches
+                .get_one::<String>("node_ws_port")
+                .cloned()
+                .unwrap_or(existing_node_ws_port),
+        ),
+        unstructured_server_api_key: Some(
+            sub_matches
+                .get_one::<String>("unstructured_server_api_key")
+                .cloned()
+                .unwrap_or(existing_unstructured_server_api_key),
+        ),
+        embeddings_server_api_key: Some(
+            sub_matches
+                .get_one::<String>("embeddings_server_api_key")
+                .cloned()
+                .unwrap_or(existing_embeddings_server_api_key),
+        ),
+        job_manager_threads: Some(
+            sub_matches
+                .get_one::<String>("job_manager_threads")
+                .cloned()
+                .unwrap_or(existing_job_manager_threads),
+        ),
+        global_identity_name: Some(
+            sub_matches
+                .get_one::<String>("global_identity_name")
+                .cloned()
+                .unwrap_or(existing_global_identity_name),
         ),
     });
     config_manager.write_config(&config);

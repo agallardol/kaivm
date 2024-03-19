@@ -2,12 +2,11 @@
 
 ![GitHub Social](https://raw.githubusercontent.com/agallardol/kaivm/main/readme-assets/github-social.png)
 
-
 KAIVM is a multiplatform Command Line Interface (CLI) designed to simplify the process of downloading, managing, configuring, and running different versions of Shinkai Node. It provides a seamless way to switch between Shinkai Node versions, ensuring developers can test their applications against multiple versions with ease. For more information on getting started with Shinkai Node, visit [Shinkai Documentation](https://docs.shinkai.com/getting-started).
 
-Getting started with KAIVM is straightforward. Follow these steps to install, run, and customize a specific version of Shinkai Node:
-
 ## Getting Started
+
+Getting started with KAIVM is straightforward. Follow these steps to install, run, and customize a specific version of Shinkai Node:
 
 ### 1. Install KAIVM
 
@@ -110,6 +109,12 @@ KAIVM offers a variety of commands to manage Shinkai Node versions:
   - `--initial_agent_models`: A comma-separated list of models for the initial agents, corresponding to the names provided.
   - `--initial_agent_api_keys`: A comma-separated list of API keys for the initial agents, corresponding to the names provided.
   - `--starting_num_qr_devices`: The initial number of QR devices that should be supported by the Shinkai Node.
+  - `--node_port`: Specifies the port on which the Shinkai Node will run.
+  - `--node_ws_port`: Specifies the WebSocket port for the Shinkai Node.
+  - `--unstructured_server_api_key`: The API key for the unstructured server that the Shinkai Node will communicate with.
+  - `--embeddings_server_api_key`: The API key for the embeddings server used by the Shinkai Node for processing data.
+  - `--job_manager_threads`: The number of threads to be used by the job manager within the Shinkai Node.
+  - `--global_identity_name`: The global identity name for the Shinkai Node.
   ```
   kaivm node env --node_api_port 9550 --node_storage_path ~/.kaivm/data
   ```
