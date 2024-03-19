@@ -1,5 +1,8 @@
 # KAIVM - Shinkai Version Manager
 
+![GitHub Social](https://raw.githubusercontent.com/agallardol/kaivm/main/readme-assets/github-social.png)
+
+
 KAIVM is a multiplatform Command Line Interface (CLI) designed to simplify the process of downloading, managing, configuring, and running different versions of Shinkai Node. It provides a seamless way to switch between Shinkai Node versions, ensuring developers can test their applications against multiple versions with ease. For more information on getting started with Shinkai Node, visit [Shinkai Documentation](https://docs.shinkai.com/getting-started).
 
 Getting started with KAIVM is straightforward. Follow these steps to install, run, and customize a specific version of Shinkai Node:
@@ -87,12 +90,16 @@ KAIVM offers a variety of commands to manage Shinkai Node versions:
   kaivm version
   ```
 
-- **shinkai-node run**: Runs the currently set version of Shinkai Node.
+- **node run**: Runs the currently set version of Shinkai Node.
   ```
   kaivm node run
   ```
+- **node reset**: Reset your Shinkai Node.
+  ```
+  kaivm node reset
+  ```
 
-- **shinkai-node env**: Sets environment variables for the current Shinkai Node session. Available options include:
+- **node env**: Sets environment variables for the current Shinkai Node session. Available options include:
   - `--node_api_port`: Specifies the port on which the Shinkai Node API will run.
   - `--node_storage_path`: Defines the file system path where Shinkai Node will store its data.
   - `--unstructured_server_url`: The URL of the unstructured server that Shinkai Node will communicate with.
