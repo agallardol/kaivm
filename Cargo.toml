@@ -1,6 +1,6 @@
 [package]
 name = "kaivm"
-version = "0.1.1"
+version = "0.2.0"
 description = "KAIVM is a multiplatform Command Line Interface (CLI) designed to simplify the process of downloading, managing, configuring, and running different versions of Shinkai Node"
 authors = ["Alfredo Gallardo <agallardol@outlook.com>"]
 homepage = "https://github.com/agallardol/kaivm"
