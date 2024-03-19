@@ -4,6 +4,7 @@ use config::config_manager::ConfigManager;
 mod command_handlers;
 mod config;
 mod utils;
+mod tests;
 
 fn cli() -> Command {
     Command::new("kaivm")
