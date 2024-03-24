@@ -19,7 +19,7 @@ pub async fn list_remote(
 ) {
     println!("⌛ Fetching versions from remote...\n");
     let versions_definition_response = get(get_shinkai_node_binaries_versions_url()).await;
-    let mut versions_definition = match versions_definition_response {
+    let versions_definition = match versions_definition_response {
         Ok(response) => {
             if response.status().is_success() {
                 match response.json::<Versions>().await {
