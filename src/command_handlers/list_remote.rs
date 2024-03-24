@@ -3,7 +3,8 @@ use reqwest::get;
 use serde::Deserialize;
 
 use crate::{
-    config::config_manager::ConfigManager, utils::utils::get_shinkai_node_binaries_versions_url,
+    config::config_manager::{self, ConfigManager},
+    utils::utils::get_shinkai_node_binaries_versions_url,
 };
 
 #[derive(Deserialize)]
@@ -15,11 +16,11 @@ struct Versions {
 pub async fn list_remote(
     command: &Command,
     _sub_matches: &ArgMatches,
-    mut _config_manager: ConfigManager,
+    mut config_manager: ConfigManager,
 ) {
     println!("⌛ Fetching versions from remote...\n");
     let versions_definition_response = get(get_shinkai_node_binaries_versions_url()).await;
-    let mut versions_definition = match versions_definition_response {
+    let versions_definition = match versions_definition_response {
         Ok(response) => {
             if response.status().is_success() {
                 match response.json::<Versions>().await {
@@ -47,12 +48,23 @@ pub async fn list_remote(
         }
     };
 
+    let current_version = config_manager
+        .get_config()
+        .current
+        .unwrap_or("".to_string());
+
     for version in versions_definition.versions.iter() {
-        if version == &versions_definition.latest {
-            println!("🏷️ {} (✨latest)", version);
+        let current_version_tag = if &current_version == version {
+            "(👉current)".to_string()
         } else {
-            println!("🏷️ {}", version);
-        }
+            "".to_string()
+        };
+        let latest_version_tag: String = if &versions_definition.latest == version {
+            "(✨latest)".to_string()
+        } else {
+            "".to_string()
+        };
+        println!("🏷️ {} {}{}", version, latest_version_tag, current_version_tag);
     }
     println!("\n💡 Install any of these versions running:");
     println!("\t 'kaivm install [version]'");

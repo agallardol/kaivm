@@ -8,7 +8,7 @@ fn ensure_ollama_models(initial_agent_models: &Vec<String>) {
     if ollama_list.is_err() {
         let error = clap::Error::raw(
             clap::error::ErrorKind::Io,
-            "ollama is not installed. Please install ollama to proceed: https://ollama.com/download",
+            "❌ Ollama is not installed. Please install ollama to proceed: 🌐 https://ollama.com/download",
         );
         error.exit();
     }
@@ -16,8 +16,8 @@ fn ensure_ollama_models(initial_agent_models: &Vec<String>) {
     for agent_model in initial_agent_models {
         if let Some(model) = agent_model.strip_prefix("ollama:") {
             if !ollama_list_output_text.contains(&model.to_string()) {
-                println!("ollama model '{}' is not installed.", model);
-                println!("auto installing it using 'ollama pull {}'...", model);
+                println!("❗ Ollama model '{}' is not installed.", model);
+                println!("⏳ auto installing it using 'ollama pull {}'...", model);
                 let ollama_pull = Command::new("ollama").arg("pull").arg(model).output();
                 let ollama_pull_is_error = if let Ok(output) = ollama_pull {
                     let output_text = String::from_utf8(output.stderr).unwrap_or_default();
@@ -28,7 +28,7 @@ fn ensure_ollama_models(initial_agent_models: &Vec<String>) {
                 if ollama_pull_is_error {
                     let error = clap::Error::raw(
                     clap::error::ErrorKind::Io,
-                    format!("\nError installing ollama model '{}'.\nPlease ensure you can install it manually using 'ollama pull {}'", model, model),
+                    format!("\n❌ Error downloading Ollama model '{}'.\nPlease ensure you can install it manually using 'ollama pull {}'", model, model),
                     );
                     error.exit();
                 }
@@ -41,7 +41,7 @@ pub fn run(_command: &clap::Command, _sub_matches: &ArgMatches, config_manager: 
     if config.current.is_none() {
         let error = clap::Error::raw(
             clap::error::ErrorKind::InvalidValue,
-            "No current Shinkai Node version is set. Please use 'kaivm use <VERSION>' to set a current version.",
+            "❌ No current Shinkai Node version is set. Please use 'kaivm use <VERSION>' to set a current version.",
         );
         error.exit();
     }
@@ -50,7 +50,7 @@ pub fn run(_command: &clap::Command, _sub_matches: &ArgMatches, config_manager: 
         let error = clap::Error::raw(
             clap::error::ErrorKind::InvalidValue,
             format!(
-                "Shinkai Node '{}' is not installed. Please use 'kaivm install <VERSION>'",
+                "❌ Shinkai Node '{}' is not installed. Please use 'kaivm install <VERSION>'",
                 shinkai_node_binary_file_path
             ),
         );
@@ -72,24 +72,40 @@ pub fn run(_command: &clap::Command, _sub_matches: &ArgMatches, config_manager: 
 
     let options_reflection =
         serde_json::to_value(config.shinkai_node_env.unwrap().clone()).unwrap();
-    println!("Running Shinkai Node with envs:");
+    println!("🚀 Running Shinkai Node with envs:");
     for (key, value) in options_reflection.as_object().unwrap() {
         let env_key = key.to_uppercase();
         let env_value = value.as_str().unwrap_or_default().to_string();
         if !env_value.is_empty() {
-            println!("\t{}:{}", env_key.clone(), env_value.clone());
+            println!("\t🔧 {}:{}", env_key.clone(), env_value.clone());
             command.env(env_key, env_value);
         }
     }
-
-    let mut child = command.spawn().expect("Failed to execute Shinkai Node");
-
-    let exit_status = child.wait().expect("Failed to wait on child");
-
+    println!("------------------------------------------------------------------");
+    let mut child = match command.spawn() {
+        Ok(child) => child,
+        Err(e) => {
+            let error = clap::Error::raw(
+                clap::error::ErrorKind::Io,
+                format!("❌ Failed to spawn Shinkai Node process: {}", e),
+            );
+            error.exit();
+        }
+    };
+    let exit_status = match child.wait() {
+        Ok(status) => status,
+        Err(e) => {
+            let error = clap::Error::raw(
+                clap::error::ErrorKind::Io,
+                format!("❌ Failed to wait on child: {}", e),
+            );
+            error.exit();
+        }
+    };
     if !exit_status.success() {
         let error = clap::Error::raw(
             clap::error::ErrorKind::Io,
-            format!("Shinkai Node process exited with error: {}", exit_status),
+            format!("❗ Shinkai Node process exited with error: {}", exit_status),
         );
         error.exit();
     }

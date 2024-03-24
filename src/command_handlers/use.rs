@@ -9,7 +9,7 @@ pub fn r#use(_command: &Command, sub_matches: &ArgMatches, mut config_manager: C
     if !std::path::Path::new(&shinkai_node_binary_file_path).exists() {
         let error = clap::Error::raw(
             clap::error::ErrorKind::InvalidValue,
-            format!("The specified version '{}' is not installed. Please check the version number or install it using 'kaivm install {}'.", version, version),
+            format!("❌ The specified version '{}' is not installed. Please check the version number or install it using 'kaivm install {}'.", version, version),
         );
         error.exit();
     }
@@ -18,5 +18,5 @@ pub fn r#use(_command: &Command, sub_matches: &ArgMatches, mut config_manager: C
     config.current = Some(version.clone());
     config_manager.write_config(&config.clone());
 
-    println!("\nCurrent version set to {}", version);
+    println!("\n👉 Current version set to {}", version);
 }
