@@ -24,7 +24,7 @@ fn test_cli_subcommands() {
         .collect();
     assert_eq!(
         subcommands,
-        vec!["list", "install", "use", "version", "node"]
+        vec!["list", "list-remote", "install", "use", "version", "node"]
     );
 }
 
