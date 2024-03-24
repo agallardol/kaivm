@@ -11,6 +11,7 @@ fn cli() -> Command {
         .about("A Shinkai Node versioning CLI")
         .subcommand_required(true)
         .subcommand(Command::new("list").short_flag('l').long_flag("list").long_flag_alias("ls").about("List all Shinkai Node installed versions"))
+        .subcommand(Command::new("list-remote").short_flag('r').long_flag("list-remote").long_flag_alias("lr").about("List all Shinkai Node versions"))
         .subcommand(
             Command::new("install")
                 .short_flag('i')
@@ -68,6 +69,9 @@ async fn main() {
     match matches.subcommand() {
         Some(("list", sub_matches)) => {
             command_handlers::list::list(&cli(), sub_matches, config_manager)
+        }
+        Some(("list-remote", sub_matches)) => {
+            command_handlers::list_remote::list_remote(&cli(), sub_matches, config_manager).await
         }
         Some(("install", sub_matches)) => {
             command_handlers::install::install(&cli(), sub_matches, config_manager).await
