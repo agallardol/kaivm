@@ -13,30 +13,57 @@ pub async fn install(command: &Command, sub_matches: &ArgMatches, _config_manage
 
     let version_folder_path = get_version_folder_path(version);
     if !std::path::Path::new(&version_folder_path).exists() {
-        std::fs::create_dir_all(&version_folder_path).expect("Failed to create version directory");
+        if let Err(e) = std::fs::create_dir_all(&version_folder_path) {
+            let error = clap::Error::raw(
+                ErrorKind::Io,
+                format!("❌ Failed to create version directory: {}", e),
+            )
+            .with_cmd(command);
+            error.exit();
+        }
     }
 
     let url = get_shinkai_node_binary_url(version);
     let target_path = get_version_binary_file_path(version);
 
-    let response = reqwest::get(&url).await.expect("Failed to download file");
-    if response.status() != 200 {
-        let mut error = clap::Error::raw(
-                ErrorKind::InvalidValue,
-                format!("The specified version '{}' is not available for download. Please check the version number and try again.", version.clone()),
-            ).with_cmd(command);
-        error.insert(
-            clap::error::ContextKind::InvalidArg,
-            clap::error::ContextValue::String("VERSION".to_owned()),
-        );
-        error.exit();
-    }
+    let response = match reqwest::get(&url).await {
+        Ok(resp) => {
+            if resp.status() != 200 {
+                let mut error = clap::Error::raw(
+                    ErrorKind::InvalidValue,
+                    format!("❌ The specified version '{}' is not available for download. Please check the version number and try again.", version.clone()),
+                ).with_cmd(command);
+                error.insert(
+                    clap::error::ContextKind::InvalidArg,
+                    clap::error::ContextValue::String("VERSION".to_owned()),
+                );
+                error.exit();
+            }
+            resp
+        }
+        Err(e) => {
+            let error =
+                clap::Error::raw(ErrorKind::Io, format!("❌ Failed to download file: {}", e))
+                    .with_cmd(command);
+            error.exit();
+        }
+    };
 
     let total_size = response.content_length().unwrap_or(0);
     let total_size_mb = total_size as f64 / 1024.0 / 1024.0;
 
-    println!("Pulling version:{} size:{:.2}MB", version, total_size_mb);
-    let mut file = std::fs::File::create(&target_path).expect("Failed to create file");
+    println!("⏳ Pulling version:{} size:{:.2}MB", version, total_size_mb);
+    let mut file = match std::fs::File::create(&target_path) {
+        Ok(f) => f,
+        Err(e) => {
+            let error = clap::Error::raw(
+                ErrorKind::Io,
+                format!("❌ Failed to create file at {}: {}", target_path, e),
+            )
+            .with_cmd(command);
+            error.exit();
+        }
+    };
     let mut downloaded: u64 = 0;
     let mut stream = response.bytes_stream();
 
@@ -49,11 +76,11 @@ pub async fn install(command: &Command, sub_matches: &ArgMatches, _config_manage
         } else {
             0.0
         };
-        print!("\rDownloading {:.2}%", percentage);
+        print!("\r⬇️  Downloading {:.2}%", percentage);
         std::io::stdout().flush().unwrap();
     }
     println!(
-        "\nVersion {} has been downloaded and stored at {}",
+        "\n✅ Version {} has been downloaded and stored at 📂 {}",
         version, target_path
     );
 
