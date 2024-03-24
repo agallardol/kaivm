@@ -52,7 +52,15 @@ pub fn get_shinkai_node_binary_url(version: &String) -> String {
         "https://download.shinkai.com/shinkai-node/binaries/{}/shinkai-node-{}{}",
         get_arch(),
         version,
-        if cfg!(target_os = "windows") { ".exe" } else { "" },
+        if cfg!(target_os = "windows") {
+            ".exe"
+        } else {
+            ""
+        },
     );
     url
+}
+
+pub fn get_shinkai_node_binaries_versions_url() -> String {
+    "https://download.shinkai.com/shinkai-node/binaries/versions.json".to_string()
 }
